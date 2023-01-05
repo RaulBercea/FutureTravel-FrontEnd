@@ -1,0 +1,14 @@
+@import "swiper/css";
+@import "swiper/css/effect-fade";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
+.swiper-pagination-bullet-active {
+  background-color: white;
+}
+
+.swiper-slide {
+  background-size: contain !important;
+  background-repeat: no-repeat;
+  background-position: 0 50px !important;
+}

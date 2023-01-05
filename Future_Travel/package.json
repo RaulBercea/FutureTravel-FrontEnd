@@ -16,9 +16,9 @@
   "dependencies": {
     "@angular/animations": "^15.0.0",
     "@angular/cdk": "^15.0.3",
-    "@angular/common": "^15.0.0",
+    "@angular/common": "^15.0.4",
     "@angular/compiler": "^15.0.0",
-    "@angular/core": "^15.0.0",
+    "@angular/core": "^15.0.4",
     "@angular/forms": "^15.0.0",
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
@@ -30,6 +30,7 @@
     "express": "^4.15.2",
     "ng2-charts": "^4.1.1",
     "rxjs": "~7.5.0",
+    "swiper": "^8.4.5",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
   },

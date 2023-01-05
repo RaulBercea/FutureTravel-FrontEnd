@@ -1,0 +1,32 @@
+<swiper
+  [spaceBetween]="30"
+  [effect]="'fade'"
+  [pagination]="{
+    clickable: false
+  }"
+  [autoplay]="{
+    delay: 4000,
+    disableOnInteraction: false
+  }"
+  [allowTouchMove]="false"
+  class="h-full w-screen"
+>
+  <ng-template swiperSlide>
+    <img
+      class="h-full object-center object-cover"
+      src=".\assets\Campania-Landing-Page-4k.jpg"
+    />
+  </ng-template>
+  <ng-template swiperSlide>
+    <img
+      class="h-full object-center object-cover"
+      src=".\assets\Campania-lago-daverno.jpg"
+    />
+  </ng-template>
+  <ng-template swiperSlide>
+    <img
+      class="h-full object-center object-cover"
+      src=".\assets\Case_di_Procida.jpg"
+    />
+  </ng-template>
+</swiper>
