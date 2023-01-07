@@ -5,9 +5,10 @@ import { AppComponent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { ProvincePageComponent } from './province-page/province-page.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, LandingPageComponent],
+  declarations: [AppComponent, NavbarComponent, LandingPageComponent, ProvincePageComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
