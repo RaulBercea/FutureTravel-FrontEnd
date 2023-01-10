@@ -1,8 +1,10 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { ProvincePageComponent } from './components/province-page/province-page.component';
 
-const routes: Routes = [{ path: '', component: LandingPageComponent }];
+const routes: Routes = [{ path: '', component: LandingPageComponent },
+{ path: 'province-page', component: ProvincePageComponent }];
 
 @NgModule({
   imports: [
@@ -12,4 +14,4 @@ const routes: Routes = [{ path: '', component: LandingPageComponent }];
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

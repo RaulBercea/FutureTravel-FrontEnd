@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-province-page',
@@ -6,10 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./province-page.component.scss']
 })
 export class ProvincePageComponent {
-  province: string[];
+  provinces: string[];
 
   constructor() {
-    this.province = [
+    this.provinces = [
       "Napoli",
       "Salerno",
       "Caserta",

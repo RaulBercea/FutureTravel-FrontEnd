@@ -1,1 +1,30 @@
+<img
+  class="h-full w-screen -z-10 object-cover fixed"
+  src=".\assets\Campania-Landing-Page-4k.jpg"
+  alt="campania background image"
+/>
 <app-navbar class="top-0 sticky"></app-navbar>
+
+<div
+  class="flex flex-col justify-center items-center bg-white mx-auto w-40 px-40 py-10 rounded-3xl"
+>
+  <div border p-4 rounded-lg text-red border-red>
+    <h1 [routerLink]="">Dati campania</h1>
+  </div>
+</div>
+
+<div
+  class="h-screen fixed sm:relative sm:h-auto sm:flex sm:flex-row sm:justify-center sm:w-2/3 md:w-1/2 lg:w-[600px] sm:mx-auto sm:backdrop-blur-lg sm:mt-64 sm:p-3 rounded-3xl"
+>
+  <div
+    class="bg-white w-full flex flex-col h-46 fixed bottom-0 sm:bottom-auto sm:w-64 sm:my-auto sm:h-40 sm:relative p-4 rounded-t-3xl sm:rounded-b-3xl"
+  >
+    <div
+      *ngFor="let province of provinces"
+      [routerLink]=""
+      class="border p-4 rounded-lg text-red border-red flex flex-row justify-center mb-2 hover:bg-red hover:text-white ease-in duration-200"
+    >
+      Dati {{ province }}
+    </div>
+  </div>
+</div>

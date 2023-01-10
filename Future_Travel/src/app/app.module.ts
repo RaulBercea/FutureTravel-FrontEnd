@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
-import { ProvincePageComponent } from './province-page/province-page.component';
+import { ProvincePageComponent } from './components/province-page/province-page.component';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LandingPageComponent, ProvincePageComponent],
@@ -17,4 +17,4 @@ import { ProvincePageComponent } from './province-page/province-page.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
