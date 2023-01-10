@@ -5,10 +5,11 @@ import { AppComponent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
-import { ProvincePageComponent } from './components/province-page/province-page.component';
+import { ProvincesPageComponent } from './components/provinces-page/provinces-page.component';
+import { ProvinceComponent } from './components/province/province.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, LandingPageComponent, ProvincePageComponent],
+  declarations: [AppComponent, NavbarComponent, LandingPageComponent, ProvincesPageComponent, ProvinceComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,

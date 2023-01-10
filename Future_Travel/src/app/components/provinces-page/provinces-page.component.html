@@ -1,0 +1,34 @@
+<img
+  class="h-full w-screen -z-10 object-cover fixed"
+  src=".\assets\Campania-lago-daverno.jpg"
+  alt="campania background image"
+/>
+<app-navbar class="top-0 sticky"></app-navbar>
+
+<div class="flex justify-center text-3xl text-white">
+  <i class="bi bi-airplane-fill rotate-45"></i>
+  <h1 class="font-bold">Travel Data</h1>
+</div>
+
+<div
+  class="bg-blue bg-center p-4 mt-20 w-1/3 flex flex-col mx-auto rounded-lg py-20 hover:bg-white hover:text-blue"
+>
+  <div
+    [routerLink]="[]"
+    class="font-bold flex flex-row justify-center text-2xl hover:text-blue"
+  >
+    Dati campania
+  </div>
+</div>
+
+<div
+  class="bg-white p-4 mt-20 w-full md:w-1/3 md:static sm:mx-auto flex flex-col rounded-lg fixed bottom-0"
+>
+  <div
+    *ngFor="let province of provinces"
+    [routerLink]="['/province/', province]"
+    class="border p-4 rounded-lg text-red border-red flex flex-row justify-center mb-2 hover:bg-red hover:text-white ease-in duration-200"
+  >
+    Dati Provincia di {{ province }}
+  </div>
+</div>

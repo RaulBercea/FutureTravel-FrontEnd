@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
-  selector: 'app-province-page',
-  templateUrl: './province-page.component.html',
-  styleUrls: ['./province-page.component.scss']
+  selector: 'app-provinces-page',
+  templateUrl: './provinces-page.component.html',
+  styleUrls: ['./provinces-page.component.scss']
 })
-export class ProvincePageComponent {
+export class ProvincesPageComponent {
   provinces: string[];
 
   constructor() {

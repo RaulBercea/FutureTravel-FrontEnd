@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProvincePageComponent } from './province-page.component';
+import { ProvinceComponent } from './province.component';
 
-describe('ProvincePageComponent', () => {
-  let component: ProvincePageComponent;
-  let fixture: ComponentFixture<ProvincePageComponent>;
+describe('ProvinceComponent', () => {
+  let component: ProvinceComponent;
+  let fixture: ComponentFixture<ProvinceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProvincePageComponent ]
+      declarations: [ ProvinceComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ProvincePageComponent);
+    fixture = TestBed.createComponent(ProvinceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
