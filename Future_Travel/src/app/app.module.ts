@@ -6,7 +6,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { HomeComponent } from './components/home/home.component';
-import { ProvinceComponent } from './components/province/province.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { ProvinceComponent } from './components/province/province.component';
     NavbarComponent,
     LandingPageComponent,
     HomeComponent,
-    ProvinceComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
