@@ -5,9 +5,10 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { apiService } from '../services/api.service';
+import { APIResult } from '../models/apiResult.model';
 
 @Injectable({ providedIn: 'root' })
-export class YourResolver implements Resolve<any> {
+export class apiDataResolver implements Resolve<any> {
   constructor(private apiService: apiService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.apiService.getApiData(route.paramMap.get('query'));
