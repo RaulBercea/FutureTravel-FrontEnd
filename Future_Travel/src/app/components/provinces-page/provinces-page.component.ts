@@ -8,6 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class ProvincesPageComponent {
   provinces: string[];
+  urlImg: string[]
 
   constructor() {
     this.provinces = [
@@ -17,6 +18,15 @@ export class ProvincesPageComponent {
       "Avellino",
       "Benevento"
 
+    ]
+
+
+    this.urlImg = [
+      "assets/napoli.jpeg",
+      "assets/salerno.jpeg",
+      "assets/caserta.jpeg",
+      "assets/avellino.jpeg",
+      "assets/benevento.jpeg",
     ]
   }
 
