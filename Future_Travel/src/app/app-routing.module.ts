@@ -4,9 +4,10 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { ProvinceComponent } from './components/province/province.component';
 import { ProvincesPageComponent } from './components/provinces-page/provinces-page.component';
 
-const routes: Routes = [{ path: '', component: LandingPageComponent },
-{ path: 'provinces-page', component: ProvincesPageComponent },
-{ path: 'province/:province', component: ProvinceComponent }
+const routes: Routes = [
+  { path: '', component: LandingPageComponent },
+  { path: 'provinces-page', component: ProvincesPageComponent },
+  { path: 'province/:province', component: ProvinceComponent },
 ];
 
 @NgModule({
@@ -17,4 +18,4 @@ const routes: Routes = [{ path: '', component: LandingPageComponent },
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
