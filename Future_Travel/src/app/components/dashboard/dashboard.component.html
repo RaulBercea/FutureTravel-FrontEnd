@@ -1,9 +1,10 @@
-<div class="bg-red"><app-navbar class="top-0 sticky"></app-navbar></div>
+<div class="bg-red top-0 sticky w-full z-50"><app-navbar></app-navbar></div>
 
 <div class="text-center my-5 text-3xl text-black">
   <h1 class="font-bold">{{ city }}</h1>
 </div>
 
+<p class="text-center my-4">Arrivals and Attendance in {{city}}</p>
 <div class="mx-5 my-5 px-3 py-6 border border-solid rounded-lg">
   <canvas
     baseChart
@@ -12,6 +13,28 @@
     [options]="barChartOptions"
     [plugins]="barChartPlugins"
     [type]="barChartType"
+  >
+  </canvas>
+</div>
+<div class="mx-5 my-5 px-3 py-6 border border-solid rounded-lg">
+  <canvas
+    baseChart
+    class="chart"
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [type]="lineChartType"
+  >
+  </canvas>
+</div>
+<div class="mx-5 my-5 px-3 py-6 border border-solid rounded-lg">
+  <canvas
+    baseChart
+    class="chart"
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [type]="scatterChartType"
   >
   </canvas>
 </div>

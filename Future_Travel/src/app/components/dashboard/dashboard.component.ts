@@ -40,6 +40,8 @@ export class DashboardComponent {
     },
   };
   public barChartType: ChartType = 'bar';
+  public lineChartType: ChartType = 'line';
+  public scatterChartType: ChartType = 'scatter';
   public barChartPlugins = [DataLabelsPlugin];
 
   public barChartData: ChartData<'bar'> = {
