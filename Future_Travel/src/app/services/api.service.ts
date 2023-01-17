@@ -12,9 +12,11 @@ export class apiService {
   // base url
   apiUrl: string = 'http://18.102.24.178:8085/gruppo8/front/';
 
-  getApiData(query?: string | null) {
-    if (typeof query !== null) {
-      return this.httpClient.get(`${this.apiUrl}${query}`);
+  getHotelLiokeData(province?: string, startDate?: string, endDate?: string) {
+    if (typeof province !== null) {
+      return this.httpClient.get(
+        `${this.apiUrl}/alloggio/hotellike?=${province}`
+      );
     } else {
       return this.httpClient.get(`${this.apiUrl})`);
     }

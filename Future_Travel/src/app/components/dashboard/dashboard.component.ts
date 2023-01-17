@@ -31,7 +31,7 @@ export class DashboardComponent {
     },
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
       datalabels: {
         anchor: 'center',
