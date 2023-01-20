@@ -2,13 +2,51 @@
   <div class="flex flex-row justify-center gutter">
     <img class="w-8 mr-2" src="./assets/FE_Logo.svg" alt="" />
     <p
-      class="text-white text-2xl"
+      class="text-white text-2xl right-0 w-10 mr-5 p-3 justify-between"
       style="font-family: 'Inter', sans-serif; font-weight: 900">
       Future
     </p>
-    <p class="text-white text-2xl" style="font-family: 'Inter', sans-serif">
+    <p class="text-white text-2xl right-0 w-10 mr-5 p-3 justify-between" style="font-family: 'Inter', sans-serif">
       Travel
     </p>
   </div>
-  <i class="bi bi-list text-white text-3xl"></i>
+  <div>
+    <nav>
+      <div class="h-16 items-center justify-between inset-y-0
+        right-0 w-10 mr-5 p-3">
+        <div class="inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button type="button" class="bi bi-list text-white text-3xl"
+            id="user-menu-button" aria-controls="mobile-menu"
+            aria-expanded="false"></button>
+        </div>
+        <div class="flex flex-1 items-center justify-center
+          sm:items-stretch sm:justify-start">
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a href="#" class="text-white hover:bg-gray-700
+                hover:text-white px-3 py-2 rounded-md text-sm
+                font-medium">Future
+                Travel</a>
+              <a href="#" class="text-white hover:bg-gray-700
+                hover:text-white px-3 py-2 rounded-md text-sm
+                font-medium">Predictions</a>
+
+              <a href="#" class="text-white hover:bg-gray-700
+                hover:text-white px-3 py-2 rounded-md text-sm
+                font-medium">About</a>
+
+            </div>
+          </div>
+        </div>
+        <div class="flex inset-y-0 right-0 flex items-center pr-2
+          sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        </div>
+      </div>
+    </nav>
+  </div>
 </div>
+
+
+<!-- <div class="absolute h-16 items-center justify-between inset-y-0 right-0 w-10 mr-2 p-3"> -->
