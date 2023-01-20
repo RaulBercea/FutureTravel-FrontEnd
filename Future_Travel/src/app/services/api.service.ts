@@ -13,36 +13,44 @@ export class apiService {
   apiUrl: string = 'http://18.102.24.178:8085/gruppo8/front/';
 
   /**
-   * api call to get all of the hotellike data for the italian residents
-   * @param province - the istat province code (defaults to the regional code if not given)
-   * @param startDate - the begining date of the dataset (yyyy-mm format)
-   * @param endDate - the endingDate of the dataset (yyyy-mm format)
-   * @returns the resulting json of the api call
+   *
+   * @param dataset
+   * @param residence
+   * @param solution
+   * @param province
+   * @param startDate
+   * @param endDate
+   * @returns
    */
-  getHotelLikeItStoric(
+  getApiCall(
+    dataset: string | 'S',
+    residence: string | 'ALL',
+    solution: string | 'ALL',
     province: string | 'ITF3',
     startDate?: string,
     endDate?: string
   ) {
     // check weather to add the date range to the api
-    if (typeof startDate !== null && typeof endDate !== null) {
+    if (startDate && endDate) {
       return this.httpClient.get(
-        `${this.apiUrl}/S/IT/HOTELLIKE/${province}?startDate=${startDate}&endDate=${endDate}`
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}?startDate=${startDate}&endDate=${endDate}`
       );
     }
     // individual checks for each of the ends of the range
-    else if (typeof startDate !== null && typeof endDate == null) {
+    else if (startDate && !endDate) {
       return this.httpClient.get(
-        `${this.apiUrl}/S/IT/HOTELLIKE/${province}?startDate=${startDate}`
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}?startDate=${startDate}`
       );
-    } else if (typeof startDate == null && typeof endDate !== null) {
+    } else if (!startDate && endDate) {
       return this.httpClient.get(
-        `${this.apiUrl}/S/IT/HOTELLIKE/${province}?endDate=${endDate}`
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}?endDate=${endDate}`
       );
     }
     // return the result of the call with no query strings
     else {
-      return this.httpClient.get(`${this.apiUrl}/S/IT/HOTELLIKE/${province}`);
+      return this.httpClient.get(
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}`
+      );
     }
   }
 }
