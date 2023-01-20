@@ -21,7 +21,7 @@ export class DashboardComponent {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
     layout: {
-      padding: 10,
+      padding: 0,
     },
     scales: {
       x: {},
