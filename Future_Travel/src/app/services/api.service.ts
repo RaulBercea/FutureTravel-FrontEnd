@@ -12,13 +12,45 @@ export class apiService {
   // base url
   apiUrl: string = 'http://18.102.24.178:8085/gruppo8/front/';
 
-  getHotelLiokeData(province?: string, startDate?: string, endDate?: string) {
-    if (typeof province !== null) {
+  /**
+   *
+   * @param dataset
+   * @param residence
+   * @param solution
+   * @param province
+   * @param startDate
+   * @param endDate
+   * @returns
+   */
+  getApiCall(
+    dataset: string | 'S',
+    residence: string | 'ALL',
+    solution: string | 'ALL',
+    province: string | 'ITF3',
+    startDate?: string,
+    endDate?: string
+  ) {
+    // check weather to add the date range to the api
+    if (startDate && endDate) {
       return this.httpClient.get(
-        `${this.apiUrl}/alloggio/hotellike?=${province}`
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}?startDate=${startDate}&endDate=${endDate}`
       );
-    } else {
-      return this.httpClient.get(`${this.apiUrl})`);
+    }
+    // individual checks for each of the ends of the range
+    else if (startDate && !endDate) {
+      return this.httpClient.get(
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}?startDate=${startDate}`
+      );
+    } else if (!startDate && endDate) {
+      return this.httpClient.get(
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}?endDate=${endDate}`
+      );
+    }
+    // return the result of the call with no query strings
+    else {
+      return this.httpClient.get(
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}`
+      );
     }
   }
 }
