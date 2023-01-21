@@ -19,6 +19,7 @@ export class DashboardComponent {
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     // We use these empty structures as placeholders for dynamic theming.
     layout: {
       padding: 0,
