@@ -19,14 +19,14 @@ export class apiService {
    * @param endDate - ending date of the data
    * @returns
    */
-  getApiCall(
-    dataset: string = 'S',
-    residence: string = 'ALL',
-    solution: string = 'ALL',
-    province: string = 'ITF3',
-    startDate?: string,
-    endDate?: string
-  ) {
+  getApiCall({
+    dataset = 'S',
+    residence = 'IT',
+    solution = 'HOTELLIKE',
+    province = 'IT3',
+    startDate = '',
+    endDate = '',
+  }) {
     // check weather to add the date range to the api
     if (startDate && endDate) {
       return this.httpClient.get(
