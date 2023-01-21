@@ -1,9 +1,6 @@
-/**
- * The file serivce containing all the calls to the api
- */
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { APIResult } from '../models/apiResult.model';
 
 @Injectable({ providedIn: 'root' })
 export class apiService {
@@ -13,13 +10,13 @@ export class apiService {
   apiUrl: string = 'http://18.102.24.178:8085/gruppo8/front/';
 
   /**
-   *
-   * @param dataset
-   * @param residence
-   * @param solution
-   * @param province
-   * @param startDate
-   * @param endDate
+   * Creates a call to the api based on the givven parameters
+   * @param dataset - either the historic dataset (S) or the preddictive dataset (P)
+   * @param residence - the provenance of the customers
+   * @param solution - the type of accomodation chosen by the customers
+   * @param province - the ISTAT code of the region
+   * @param startDate - starting date of the data
+   * @param endDate - ending date of the data
    * @returns
    */
   getApiCall(

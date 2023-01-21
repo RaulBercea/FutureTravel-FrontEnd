@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
 import { apiService } from '../services/api.service';
-import { APIResult } from '../models/apiResult.model';
 
 @Injectable({ providedIn: 'root' })
-export class apiDataResolver implements Resolve<any> {
+export class apiServiceResolver implements Resolve<any> {
   constructor(private apiService: apiService) {}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.apiService.getApiData(route.paramMap.get('query'));
+
+
+  resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
+    // return this.apiService.getApiCall('S','':route.paramMap.get("startDate")!);
   }
 }

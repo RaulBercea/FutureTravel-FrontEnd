@@ -5,10 +5,10 @@
 </div>
 
 <p class="text-center my-4">Arrivals and Attendance in {{ city }}</p>
-<div class="mx-5 my-5 px-2 py-4 border border-solid rounded-lg">
+<div class="mx-5 px-2 py-4 h-80 border border-solid rounded-lg">
   <canvas
     baseChart
-    class="chart"
+    class="chart w-full h-full"
     [data]="barChartData"
     [options]="barChartOptions"
     [plugins]="barChartPlugins"
