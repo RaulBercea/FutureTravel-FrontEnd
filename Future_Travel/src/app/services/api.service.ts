@@ -2,6 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIResult } from '../models/apiResult.model';
 
+//Named parameters for the api call function
+interface ApiParams {
+  dataset?: string;
+  residence?: string;
+  solution?: string;
+  province?: string;
+  startDate?: string | null;
+  endDate?: string | null;
+}
 @Injectable({ providedIn: 'root' })
 export class apiService {
   constructor(private httpClient: HttpClient) {}
@@ -24,13 +33,19 @@ export class apiService {
     residence = 'IT',
     solution = 'HOTELLIKE',
     province = 'IT3',
-    startDate = '',
-    endDate = '',
-  }) {
+    startDate,
+    endDate,
+  }: ApiParams) {
     // check weather to add the date range to the api
     if (startDate && endDate) {
       return this.httpClient.get(
-        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}?startDate=${startDate}&endDate=${endDate}`
+        `${this.apiUrl}
+        /${dataset}/
+        ${residence}/
+        ${solution}
+        /${province}
+        ?startDate=${startDate}
+        &endDate=${endDate}`
       );
     }
     // individual checks for each of the ends of the range

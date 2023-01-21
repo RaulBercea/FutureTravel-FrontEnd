@@ -7,8 +7,12 @@ import { apiService } from '../services/api.service';
 export class apiServiceResolver implements Resolve<any> {
   constructor(private apiService: apiService) {}
 
-
   resolve(route: ActivatedRouteSnapshot): Observable<any> | Promise<any> | any {
-    // return this.apiService.getApiCall('S','':route.paramMap.get("startDate")!);
+    const startDateUrl = route.paramMap.get('startDate');
+    const endDateUrl = route.paramMap.get('endDate');
+    return this.apiService.getApiCall({
+      startDate: startDateUrl,
+      endDate: endDateUrl,
+    });
   }
 }
