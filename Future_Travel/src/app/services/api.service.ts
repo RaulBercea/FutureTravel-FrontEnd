@@ -23,10 +23,10 @@ export class apiService {
    * @returns
    */
   getApiCall(
-    dataset: string | 'S',
-    residence: string | 'ALL',
-    solution: string | 'ALL',
-    province: string | 'ITF3',
+    dataset: string = 'S',
+    residence: string = 'ALL',
+    solution: string = 'ALL',
+    province: string = 'ITF3',
     startDate?: string,
     endDate?: string
   ) {
