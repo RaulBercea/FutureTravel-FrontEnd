@@ -1,4 +1,5 @@
 <div class="flex w-full justify-between p-3">
+  <!-- Hamburger icon -->
   <div class="flex flex-row justify-center gutter">
     <img class="w-8 mr-2" src="./assets/FE_Logo.svg" alt="" />
     <p
@@ -11,6 +12,17 @@
     </p>
   </div>
   <div class="fixed top-[40px] right-100 text-40 cursor-pointer">
-    <i class="bi bi-list text-white text-3xl"></i>
+    <i class="bi bi-list text-white text-3xl" onclick="Open(this)"></i>
+    <!-- Hamburger menu -->
+    <div class="fixed bg-[#002626] w-0 h-[100vh] text-white flex justify-center
+      items-center text-[40px] tracking-[1px] overflow-hidden origin-left
+      duration-500" id="hamburger">
+      <a href="#">Future Travel</a>
+      <a href="#Predictions">Predictions</a>
+      <a href="#AboutUs">About Us</a>
+    </div>
+    <!-- close button -->
+    <div class="absolute top-[40px] right-[100px] text-[40px] cursor-pointer"
+      onclick="Close(this)">
+    </div>
   </div>
-</div>
