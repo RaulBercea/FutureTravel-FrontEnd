@@ -90,13 +90,12 @@ export class DashboardComponent implements OnInit {
         endDate: '2022-12',
       })
       .subscribe((res: any) => {
-        console.log(provinceCode);
         this.apiCallData = res;
 
         this.apiCallData.forEach((record) => {
           this.arrivals.push(record.arrivi);
           this.attendance.push(record.presenze);
-          this.months.push(record.time);
+          this.months.push(record.time.slice(5));
         });
         this.chart?.update();
       });
