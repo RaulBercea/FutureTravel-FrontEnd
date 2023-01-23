@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import DataLabelsPlugin from 'chartjs-plugin-datalabels';
-import { ActivatedRoute } from '@angular/router';
+/* import DataLabelsPlugin from 'chartjs-plugin-datalabels';
+ */import { ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 
 @Component({
@@ -33,15 +33,15 @@ export class DashboardComponent {
       legend: {
         display: false,
       },
-      datalabels: {
+      /* datalabels: {
         anchor: 'center',
         align: 'center',
-      },
+      }, */
     },
   };
   public barChartType: ChartType = 'bar';
-  public barChartPlugins = [DataLabelsPlugin];
-
+/*   public barChartPlugins = [DataLabelsPlugin];
+ */
   public barChartData: ChartData<'bar'> = {
     labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
     datasets: [
