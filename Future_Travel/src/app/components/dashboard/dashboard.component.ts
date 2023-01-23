@@ -16,6 +16,14 @@ import { CityName } from 'src/app/models/enums/cityName.enum';
 })
 export class DashboardComponent implements OnInit {
   city: String | null = '';
+  // container for the api call
+  apiCallData: APIResult[] = [];
+
+  arrivals: Array<number> = [];
+  attendance: Array<number> = [];
+  months: Array<string> = [];
+
+  attendanceMax: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,13 +63,6 @@ export class DashboardComponent implements OnInit {
   public pieChartType: ChartType = 'pie';
   public barChartPlugins = [DataLabelsPlugin];
 
-  // container for the api call
-  apiCallData: APIResult[] = [];
-
-  arrivals: Array<number> = [];
-  attendance: Array<number> = [];
-  months: Array<string> = [];
-
   public barChartData: ChartData<'bar' | 'line' | 'pie'> = {
     labels: this.months,
     datasets: [{ data: this.arrivals, label: 'Arivals' }],
@@ -77,6 +78,8 @@ export class DashboardComponent implements OnInit {
 
     let provinceCode: string | undefined;
 
+    // look for the name of the province in the
+    // province enum and return the ISTAT code
     if (Object.keys(CityName).includes(this.city.toString())) {
       provinceCode = Object.values(CityName).at(
         Object.keys(CityName).indexOf(this.city.toString())
@@ -95,7 +98,9 @@ export class DashboardComponent implements OnInit {
         this.apiCallData.forEach((record) => {
           this.arrivals.push(record.arrivi);
           this.attendance.push(record.presenze);
-          this.months.push(record.time.slice(5));
+          let date = new Date();
+          date.setMonth(parseInt(record.time.slice(5)) - 1);
+          this.months.push(date.toLocaleString('en-US', { month: 'short' }));
         });
         this.chart?.update();
       });
