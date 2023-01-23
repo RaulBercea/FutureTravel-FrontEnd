@@ -4,8 +4,12 @@
   <h1 class="font-bold">{{ city }}</h1>
 </div>
 
-<p class="text-center my-4">Arrivals and Attendance in {{ city }}</p>
-<div class="mx-5 px-2 py-4 h-80 border border-solid rounded-lg">
+<p class="text-center text-sm my-4">
+  Arrivals and Attendance in {{ city }} from Italian Tourists
+</p>
+<div
+  class="mx-5 px-2 py-4 h-[400px] max-w-[500px] border border-solid rounded-lg"
+>
   <canvas
     baseChart
     class="chart w-full h-full"
@@ -16,7 +20,7 @@
   >
   </canvas>
 </div>
-<div class="mx-5 my-5 px-3 py-6 border border-solid rounded-lg">
+<!-- <div class="mx-5 my-5 px-3 py-6 border border-solid rounded-lg">
   <canvas
     baseChart
     class="chart"
@@ -37,4 +41,4 @@
     [type]="pieChartType"
   >
   </canvas>
-</div>
+</div> -->

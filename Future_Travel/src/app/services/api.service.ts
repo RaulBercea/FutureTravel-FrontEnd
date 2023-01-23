@@ -16,7 +16,7 @@ export class apiService {
   constructor(private httpClient: HttpClient) {}
 
   // base url
-  apiUrl: string = 'http://18.102.24.178:8085/gruppo8/front/';
+  apiUrl: string = 'http://localhost:8085/gruppo8';
 
   /**
    * Creates a call to the api based on the givven parameters
@@ -32,20 +32,14 @@ export class apiService {
     dataset = 'S',
     residence = 'IT',
     solution = 'HOTELLIKE',
-    province = 'IT3',
+    province = 'ITF3',
     startDate,
     endDate,
   }: ApiParams) {
     // check weather to add the date range to the api
     if (startDate && endDate) {
       return this.httpClient.get(
-        `${this.apiUrl}
-        /${dataset}/
-        ${residence}/
-        ${solution}
-        /${province}
-        ?startDate=${startDate}
-        &endDate=${endDate}`
+        `${this.apiUrl}/${dataset}/${residence}/${solution}/${province}?startDate=${startDate}&endDate=${endDate}`
       );
     }
     // individual checks for each of the ends of the range
