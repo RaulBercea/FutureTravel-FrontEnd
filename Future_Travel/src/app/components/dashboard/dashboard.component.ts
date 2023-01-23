@@ -50,11 +50,11 @@ export class DashboardComponent implements OnInit {
     },
     plugins: {
       legend: {
-        display: true,
+        display: false,
       },
       datalabels: {
-        anchor: 'center',
-        align: 'center',
+        anchor: 'start',
+        align: 'end',
       },
     },
   };
@@ -77,7 +77,6 @@ export class DashboardComponent implements OnInit {
     }
 
     let provinceCode: string | undefined;
-
     // look for the name of the province in the
     // province enum and return the ISTAT code
     if (Object.keys(CityName).includes(this.city.toString())) {
