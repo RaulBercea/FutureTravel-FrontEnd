@@ -23,10 +23,25 @@ export class DashboardComponent implements OnInit {
   arrivals: Array<number> = [];
   attendance: Array<number> = [];
   months: Array<string> = [];
-  year: string = '2021'
-  residenceChoice: string = 'HOTELLIKE'
-
-  attendanceMax: number = 0;
+  years: Array<string> = [
+    '2021',
+    '2020',
+    '2019',
+    '2018',
+    '2017',
+    '2016',
+    '2015',
+    '2014',
+    '2013',
+    '2012',
+    '2011',
+    '2010',
+    '2009',
+    '2008',
+  ];
+  year: string | null | undefined = '2021';
+  provinceCode: string | undefined;
+  solutionChoice: string | undefined = 'HOTELLIKE';
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +49,33 @@ export class DashboardComponent implements OnInit {
     private httpClient: HttpClient
   ) {}
 
-  @ViewChildren(BaseChartDirective) chart: BaseChartDirective[] | undefined;
+  updateArrivals(year: string, residence: any, solution: string) {
+    this.arrivals.length = 0;
+    this.apiService
+      .getApiCall({
+        solution: solution,
+        province: this.provinceCode,
+        startDate: `${year}-01`,
+        endDate: `${year}-12`,
+        residence: residence,
+      })
+      .subscribe((res: any) => {
+        this.apiCallData = res;
+        this.apiCallData.forEach((record) => {
+          this.arrivals.push(record.arrivi);
+          let date = new Date();
+          date.setMonth(parseInt(record.time.slice(5)) - 1);
+          this.months = [];
+          this.months.push(date.toLocaleString('en-US', { month: 'short' }));
+        });
+
+        this.charts?.forEach((chart) => {
+          chart.update();
+        });
+      });
+  }
+
+  @ViewChildren(BaseChartDirective) charts: BaseChartDirective[] | undefined;
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -49,19 +90,18 @@ export class DashboardComponent implements OnInit {
       x: {
         ticks: {
           callback: (value: any) => {
-            let formattedValue
-            if(value>=1000){
-              formattedValue = value / 1000 + "K"
+            let formattedValue;
+            if (value >= 1000) {
+              formattedValue = value / 1000 + 'K';
             }
-            if(value>1000000){
-              formattedValue = value / 1000000 + "M"
+            if (value > 1000000) {
+              formattedValue = value / 1000000 + 'M';
             }
             return formattedValue;
-          }
+          },
         },
       },
       y: {
-        
         min: 0,
       },
     },
@@ -75,6 +115,7 @@ export class DashboardComponent implements OnInit {
       },
     },
   };
+
   public barChartType: ChartType = 'bar';
   public lineChartType: ChartType = 'line';
   public pieChartType: ChartType = 'pie';
@@ -82,12 +123,16 @@ export class DashboardComponent implements OnInit {
 
   public barChartData: ChartData<'bar'> = {
     labels: this.months,
-    datasets: [{ data: this.arrivals, label: 'Arivals' }],
+    datasets: [
+      { data: this.arrivals, label: 'Arivals', backgroundColor: '#FF2F6490' },
+    ],
   };
 
   public barChartData2: ChartData<'bar'> = {
     labels: this.months,
-    datasets: [{ data: this.attendance, label: 'Arivals' }],
+    datasets: [
+      { data: this.attendance, label: 'Arivals', backgroundColor: '#09D9D690' },
+    ],
   };
 
   formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
@@ -98,24 +143,23 @@ export class DashboardComponent implements OnInit {
       this.city = 'Campania';
     }
 
-    let provinceCode: string | undefined;
     // look for the name of the province in the
     // province enum and return the ISTAT code
     if (Object.keys(CityName).includes(this.city.toString())) {
-      provinceCode = Object.values(CityName).at(
+      this.provinceCode = Object.values(CityName).at(
         Object.keys(CityName).indexOf(this.city.toString())
       );
     }
 
     this.apiService
       .getApiCall({
-        province: provinceCode,
+        solution: this.solutionChoice,
+        province: this.provinceCode,
         startDate: `${this.year}-01`,
         endDate: `${this.year}-12`,
       })
       .subscribe((res: any) => {
         this.apiCallData = res;
-
         this.apiCallData.forEach((record) => {
           this.arrivals.push(record.arrivi);
           this.attendance.push(record.presenze);
@@ -123,9 +167,9 @@ export class DashboardComponent implements OnInit {
           date.setMonth(parseInt(record.time.slice(5)) - 1);
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
         });
-        this.chart?.forEach(chart => {
+        this.charts?.forEach((chart) => {
           chart.update();
-        });;
+        });
       });
   }
 }
