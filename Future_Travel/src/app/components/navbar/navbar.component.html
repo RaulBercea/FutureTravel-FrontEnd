@@ -1,28 +1,45 @@
-<div class="flex w-full justify-between p-3">
-  <!-- Hamburger icon -->
-  <div class="flex flex-row justify-center gutter">
-    <img class="w-8 mr-2" src="./assets/FE_Logo.svg" alt="" />
-    <p
-      class="text-white text-2xl"
-      style="font-family: 'Inter', sans-serif; font-weight: 900">
-      Future
-    </p>
-    <p class="text-white text-2xl" style="font-family: 'Inter', sans-serif">
-      Travel
-    </p>
-  </div>
-  <div class="fixed top-[40px] right-100 text-40 cursor-pointer">
-    <i class="bi bi-list text-white text-3xl" onclick="Open(this)"></i>
-    <!-- Hamburger menu -->
-    <div class="fixed bg-[#002626] w-0 h-[100vh] text-white flex justify-center
-      items-center text-[40px] tracking-[1px] overflow-hidden origin-left
-      duration-500" id="hamburger">
-      <a href="#">Future Travel</a>
-      <a href="#Predictions">Predictions</a>
-      <a href="#AboutUs">About Us</a>
-    </div>
-    <!-- close button -->
-    <div class="absolute top-[40px] right-[100px] text-[40px] cursor-pointer"
-      onclick="Close(this)">
-    </div>
-  </div>
+<!doctype html>
+<html>
+
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    <header class="bg-red">
+      <nav class="flex justify-between items-center w-[92%] mx-auto">
+        <div class="flex w-full justify-between p-3">
+          <div [routerLink]="'/home'" class="flex flex-row justify-center
+            cursor-pointer">
+            <img src="./assets/FE_Logo.svg" alt="" class="w-8 mr-2" />
+            <p class="text-white text-2xl" style="font-family: 'Inter',
+              sans-serif; font-weight: 900;"> Future </p>
+            <p class="text-white text-2xl" style="font-family: 'Inter',
+              sans-serif"> Travel </p>
+          </div>
+          <i class="bi bi-list text-white text-3xl sm:hidden"
+            onclick="onToggleMenu(this)" name="menu" cursor-pointer></i>
+        </div>
+        <div class="nav-links text-white inline-flex ">
+          <a class="hover:text-[#09d9d6] mr-5" [routerLink]="['/landing-page']"
+            routerLinkActive="router-link-active" ]>Future Travel</a>
+          <a class="hover:text-[#09d9d6] mr-5" [[routerLink]=""
+            routerLinkActive="router-link-active">Predictions</a>
+          <a class="hover:text-[#09d9d6]" [[routerLink]="['/about-page']"
+            routerLinkActive="router-link-active"]>About Us</a>
+        </div>
+      </nav>
+    </header>
+
+
+
+    <script>
+        const navLinks = document.querySelector('.nav-links')
+        function onToggleMenu(e){
+            e.name = e.name === 'menu' ? 'close' : 'menu'
+            navLinks.classList.toggle('top-[9%]')
+        }
+    </script>
+  </body>
+
+</html>

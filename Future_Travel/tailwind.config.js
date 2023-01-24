@@ -16,7 +16,11 @@ module.exports = {
       red: "#FF2F64",
       blue: "#09D9D6",
     },
-    extend: {},
+    extend: {
+      screens: {
+        md: "960px",
+      },
+    },
   },
   plugins: [],
 };

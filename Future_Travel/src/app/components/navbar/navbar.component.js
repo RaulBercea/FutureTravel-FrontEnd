@@ -1,7 +1,5 @@
-let ham = document.getElementById('hamburger')
-function Open(){
-  ham.classList.add('w-[100%]')
-}
-function Close(){
-  ham.classList.remove('w-[100%]')
-}
+  const navLinks = document.querySelector('.nav-links')
+  function onToggleMenu(e){
+      e.name = e.name === 'menu' ? 'close' : 'menu'
+      navLinks.classList.toggle('top-[9%]')
+  }
