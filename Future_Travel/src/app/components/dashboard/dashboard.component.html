@@ -3,14 +3,28 @@
 <div class="text-center my-5 text-3xl text-black">
   <h1 class="font-bold">{{ city }}</h1>
 </div>
-<div class="mx-5 px-1 h-[600px] max-w-[500px] border border-solid rounded-lg">
+<div class="mx-5 px-1 h-[40rem] max-w-[600px] border border-solid rounded-lg">
   <h2 class="text-center text-sm my-2">
-    Arrivals from Italian tourists in {{ this.city }}
+    Arrivals from Italian tourists in {{ this.city }} in the year {{this.year}}
   </h2>
   <canvas
     baseChart
     class="chart w-full h-full mb-10 px-2"
     [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [type]="barChartType"
+  >
+  </canvas>
+</div>
+<div class="mx-5 px-1 h-[40rem] max-w-[600px] border border-solid rounded-lg">
+  <h2 class="text-center text-sm my-2">
+    Attendance from Italian tourists in {{ this.city }} in the year {{this.year}} who reside in a {{this.residenceChoice}}
+  </h2>
+  <canvas
+    baseChart
+    class="chart w-full h-full mb-10 px-2"
+    [data]="barChartData2"
     [options]="barChartOptions"
     [plugins]="barChartPlugins"
     [type]="barChartType"

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewChildren } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
@@ -8,6 +8,7 @@ import { apiService } from 'src/app/services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { APIResult } from 'src/app/models/apiResult.model';
 import { CityName } from 'src/app/models/enums/cityName.enum';
+import { callbackify } from 'util';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,8 @@ export class DashboardComponent implements OnInit {
   arrivals: Array<number> = [];
   attendance: Array<number> = [];
   months: Array<string> = [];
+  year: string = '2021'
+  residenceChoice: string = 'HOTELLIKE'
 
   attendanceMax: number = 0;
 
@@ -31,7 +34,7 @@ export class DashboardComponent implements OnInit {
     private httpClient: HttpClient
   ) {}
 
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  @ViewChildren(BaseChartDirective) chart: BaseChartDirective[] | undefined;
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -43,8 +46,22 @@ export class DashboardComponent implements OnInit {
     indexAxis: 'y',
     locale: 'en-us',
     scales: {
-      x: {},
+      x: {
+        ticks: {
+          callback: (value: any) => {
+            let formattedValue
+            if(value>=1000){
+              formattedValue = value / 1000 + "K"
+            }
+            if(value>1000000){
+              formattedValue = value / 1000000 + "M"
+            }
+            return formattedValue;
+          }
+        },
+      },
       y: {
+        
         min: 0,
       },
     },
@@ -63,9 +80,14 @@ export class DashboardComponent implements OnInit {
   public pieChartType: ChartType = 'pie';
   public barChartPlugins = [DataLabelsPlugin];
 
-  public barChartData: ChartData<'bar' | 'line' | 'pie'> = {
+  public barChartData: ChartData<'bar'> = {
     labels: this.months,
     datasets: [{ data: this.arrivals, label: 'Arivals' }],
+  };
+
+  public barChartData2: ChartData<'bar'> = {
+    labels: this.months,
+    datasets: [{ data: this.attendance, label: 'Arivals' }],
   };
 
   formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
@@ -88,8 +110,8 @@ export class DashboardComponent implements OnInit {
     this.apiService
       .getApiCall({
         province: provinceCode,
-        startDate: '2021-01',
-        endDate: '2022-12',
+        startDate: `${this.year}-01`,
+        endDate: `${this.year}-12`,
       })
       .subscribe((res: any) => {
         this.apiCallData = res;
@@ -101,7 +123,9 @@ export class DashboardComponent implements OnInit {
           date.setMonth(parseInt(record.time.slice(5)) - 1);
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
         });
-        this.chart?.update();
+        this.chart?.forEach(chart => {
+          chart.update();
+        });;
       });
   }
 }
