@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { APIResult } from 'src/app/models/apiResult.model';
 import { CityName } from 'src/app/models/enums/cityName.enum';
 import { callbackify } from 'util';
+import { shareReplay } from 'rxjs';
+import { time } from 'console';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,9 +21,10 @@ export class DashboardComponent implements OnInit {
   city: String | null = '';
   // container for the api call
   apiCallData: APIResult[] = [];
-
   arrivals: Array<number> = [];
   attendance: Array<number> = [];
+  arrivalsSum: number = 0;
+  attendanceSum: number = 0;
   months: Array<string> = [];
   years: Array<string> = [
     '2021',
@@ -75,6 +78,32 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  updateAttendance(year: string, residence: any, solution: string) {
+    this.attendance.length = 0;
+    this.apiService
+      .getApiCall({
+        solution: solution,
+        province: this.provinceCode,
+        startDate: `${year}-01`,
+        endDate: `${year}-12`,
+        residence: residence,
+      })
+      .subscribe((res: any) => {
+        this.apiCallData = res;
+        this.apiCallData.forEach((record) => {
+          this.attendance.push(record.presenze);
+          let date = new Date();
+          date.setMonth(parseInt(record.time.slice(5)) - 1);
+          this.months = [];
+          this.months.push(date.toLocaleString('en-US', { month: 'short' }));
+        });
+
+        this.charts?.forEach((chart) => {
+          chart.update();
+        });
+      });
+  }
+
   @ViewChildren(BaseChartDirective) charts: BaseChartDirective[] | undefined;
 
   public barChartOptions: ChartConfiguration['options'] = {
@@ -90,7 +119,7 @@ export class DashboardComponent implements OnInit {
       x: {
         ticks: {
           callback: (value: any) => {
-            let formattedValue;
+            let formattedValue = value;
             if (value >= 1000) {
               formattedValue = value / 1000 + 'K';
             }
@@ -116,6 +145,48 @@ export class DashboardComponent implements OnInit {
     },
   };
 
+  public lineChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    layout: {
+      padding: 0,
+    },
+    locale: 'en-us',
+    scales: {
+      x: {},
+      y: {},
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      datalabels: {
+        display: false,
+      },
+    },
+  };
+
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    layout: {
+      padding: 0,
+    },
+    locale: 'en-us',
+    scales: {
+      x: {},
+      y: {},
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      datalabels: {
+        display: false,
+      },
+    },
+  };
+
   public barChartType: ChartType = 'bar';
   public lineChartType: ChartType = 'line';
   public pieChartType: ChartType = 'pie';
@@ -132,6 +203,32 @@ export class DashboardComponent implements OnInit {
     labels: this.months,
     datasets: [
       { data: this.attendance, label: 'Arivals', backgroundColor: '#09D9D690' },
+    ],
+  };
+
+  public pieChartData: ChartData<'pie'> = {
+    labels: ['Arrivals', 'Attendance'],
+    datasets: [
+      {
+        data: [this.attendanceSum, this.arrivalsSum],
+        backgroundColor: ['#FF2F6490', '#09D9D690'],
+      },
+    ],
+  };
+
+  public lineChartData: ChartData<'line'> = {
+    labels: this.months,
+    datasets: [
+      {
+        data: this.attendance,
+        label: 'Attendance',
+        backgroundColor: '#FF2F6490',
+      },
+      {
+        data: this.arrivals,
+        label: 'Arivals',
+        backgroundColor: '#09D9D690',
+      },
     ],
   };
 
@@ -166,6 +263,14 @@ export class DashboardComponent implements OnInit {
           let date = new Date();
           date.setMonth(parseInt(record.time.slice(5)) - 1);
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
+          this.attendanceSum = this.attendance.reduce(
+            (partialSum, a) => partialSum + a,
+            0
+          );
+          this.arrivalsSum = this.arrivals.reduce(
+            (partialSum, a) => partialSum + a,
+            0
+          );
         });
         this.charts?.forEach((chart) => {
           chart.update();
