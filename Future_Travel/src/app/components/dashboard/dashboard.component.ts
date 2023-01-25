@@ -71,7 +71,6 @@ export class DashboardComponent implements OnInit {
           this.months = [];
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
         });
-
         this.charts?.forEach((chart) => {
           chart.update();
         });
@@ -169,20 +168,12 @@ export class DashboardComponent implements OnInit {
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     maintainAspectRatio: false,
-    layout: {
-      padding: 0,
-    },
-    locale: 'en-us',
-    scales: {
-      x: {},
-      y: {},
-    },
     plugins: {
       legend: {
-        display: true,
+        display: false,
       },
       datalabels: {
-        display: false,
+        display: true,
       },
     },
   };
@@ -210,7 +201,10 @@ export class DashboardComponent implements OnInit {
     labels: ['Arrivals', 'Attendance'],
     datasets: [
       {
-        data: [this.attendanceSum, this.arrivalsSum],
+        data: [
+          JSON.parse(localStorage.getItem('TotalArrivals') || '0'),
+          JSON.parse(localStorage.getItem('TotalAttendance') || '0'),
+        ],
         backgroundColor: ['#FF2F6490', '#09D9D690'],
       },
     ],
@@ -256,22 +250,25 @@ export class DashboardComponent implements OnInit {
         endDate: `${this.year}-12`,
       })
       .subscribe((res: any) => {
+        localStorage.setItem('TotalArrivals', '0');
+        localStorage.setItem('TotalAttendance', '0');
         this.apiCallData = res;
         this.apiCallData.forEach((record) => {
+          this.arrivalsSum += record.arrivi;
           this.arrivals.push(record.arrivi);
+
+          this.attendanceSum += record.presenze;
           this.attendance.push(record.presenze);
+
           let date = new Date();
           date.setMonth(parseInt(record.time.slice(5)) - 1);
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
-          this.attendanceSum = this.attendance.reduce(
-            (partialSum, a) => partialSum + a,
-            0
-          );
-          this.arrivalsSum = this.arrivals.reduce(
-            (partialSum, a) => partialSum + a,
-            0
-          );
         });
+        localStorage.setItem('TotalArrivals', JSON.stringify(this.arrivalsSum));
+        localStorage.setItem(
+          'TotalAttendance',
+          JSON.stringify(this.attendanceSum)
+        );
         this.charts?.forEach((chart) => {
           chart.update();
         });
