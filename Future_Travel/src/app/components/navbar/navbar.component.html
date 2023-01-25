@@ -62,37 +62,34 @@
       <ul
         class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0"
       >
-        <li>
-          <p
-            [routerLink]="['']"
-            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
-          >
-            Home
-          </p>
+        <li
+          routerLink=""
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
+        >
+          <a> Home </a>
         </li>
-        <li>
-          <p
-            [routerLink]="['aboutus']"
-            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
-          >
-            About
-          </p>
+        <li
+          routerLink="aboutus"
+          routerLinkActive="active-link"
+          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
+        >
+          <a>About</a>
         </li>
-        <li>
-          <p
-            [routerLink]=""
-            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
-          >
-            Travel Data
-          </p>
+        <li
+          [routerLink]=""
+          routerLinkActive="active-link"
+          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
+        >
+          <a> Travel Data </a>
         </li>
-        <li>
-          <p
-            [routerLink]=""
-            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
-          >
-            Travel Prevision
-          </p>
+        <li
+          [routerLink]=""
+          routerLinkActive="active-link"
+          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0"
+        >
+          <a> Travel Prevision </a>
         </li>
       </ul>
     </div>
