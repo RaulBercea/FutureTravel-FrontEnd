@@ -130,7 +130,7 @@ export class DashboardComponent implements OnInit {
 
   updatePieChart(year: string, residence: any, solution: string) {
     this.pieArrivals.length = 0;
-    this.pieArrivals.length = 0;
+    this.pieAttendance.length = 0;
     this.apiService
       .getApiCall({
         dataset: this.dataset,
