@@ -23,8 +23,6 @@ export class DashboardComponent implements OnInit {
   apiCallData: APIResult[] = [];
   arrivals: Array<number> = [];
   attendance: Array<number> = [];
-  arrivalsSum: number = JSON.parse(localStorage.getItem('TotalArrivals')!);
-  attendanceSum: number = JSON.parse(localStorage.getItem('TotalAttendance')!);
   months: Array<string> = [];
   years: Array<string> = [
     '2021',
@@ -218,18 +216,6 @@ export class DashboardComponent implements OnInit {
   formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
 
   ngOnInit(): void {
-    this.arrivalsSum = JSON.parse(localStorage.getItem('TotalArrivals')!);
-    this.attendanceSum = JSON.parse(localStorage.getItem('TotalAttendance')!);
-    this.pieChartData  = {
-      labels: ['Arrivals', 'Attendance'],
-      datasets: [
-        {
-          data: [this.arrivalsSum, this.attendanceSum],
-          backgroundColor: [ '#09D9D690','#FF2F6490'],
-        },
-      ],
-    };
-
     this.city = this.route.snapshot.paramMap.get('province');
     if (!this.city) {
       this.city = 'Campania';
@@ -255,24 +241,25 @@ export class DashboardComponent implements OnInit {
         localStorage.setItem('TotalAttendance', '0');
         this.apiCallData = res;
         this.apiCallData.forEach((record) => {
-          this.arrivalsSum += record.arrivi;
           this.arrivals.push(record.arrivi);
-
-          this.attendanceSum += record.presenze;
           this.attendance.push(record.presenze);
 
           let date = new Date();
           date.setMonth(parseInt(record.time.slice(5)) - 1);
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
 
-          localStorage.setItem(
-            'TotalArrivals',
-            JSON.stringify(this.arrivalsSum)
-          );
-          localStorage.setItem(
-            'TotalAttendance',
-            JSON.stringify(this.attendanceSum)
-          );
+          this.pieChartData = {
+            labels: ['Arrivals', 'Attendance'],
+            datasets: [
+              {
+                data: [
+                  this.arrivals.reduce((part, element) => part + element, 0),
+                  this.attendance.reduce((part, element) => part + element, 0),
+                ],
+                backgroundColor: ['#09D9D690', '#FF2F6490'],
+              },
+            ],
+          };
         });
         this.charts?.forEach((chart) => {
           chart.update();
