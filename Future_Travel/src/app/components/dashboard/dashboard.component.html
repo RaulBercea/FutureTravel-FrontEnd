@@ -1,0 +1,294 @@
+<div class="bg-red top-0 sticky w-full z-50"><app-navbar></app-navbar></div>
+
+<div class="text-center my-5 text-3xl text-black">
+  <h1 class="font-bold">{{ city }}</h1>
+</div>
+<div class="md:grid lg:grid-cols-2 xl:grid-cols-3 md:w-11/12 mx-auto">
+  <div
+    *ngIf="dataset != 'P'"
+    class="mb-3 mx-2 px-1 py-5 h-[45rem] max-w-1/3 border border-solid rounded-lg"
+  >
+    <div class="h-5/6 mx-auto">
+      <h2 class="text-center text-sm my-4">
+        Arrivals from {{ arrivalsResidence.value }} tourists in
+        {{ this.city }} in the year
+        {{ arivalsYearSelect.value }}
+      </h2>
+      <div class="flex justify-center flex-wrap items-end gap-2">
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="year">Year</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="year"
+            #arivalsYearSelect
+          >
+            <option *ngFor="let year of this.years" [value]="year">
+              {{ year }}
+            </option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="residence">Residence</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="residence"
+            #arrivalsResidence
+          >
+            <option selected value="IT">Italian</option>
+            <option value="WRL_X_ITA">Other Countries</option>
+            <option value="ALL">All</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="residence">Solution</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="Solution"
+            #arrivalsSolution
+          >
+            <option selected value="HOTELLIKE">Hotel</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+        <div>
+          <button
+            (click)="
+              this.updateArrivals(
+                arivalsYearSelect.value,
+                arrivalsResidence.value,
+                arrivalsSolution.value
+              )
+            "
+            class="bg-lightgray border border-red text-red text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5 hover:bg-red hover:text-white transition-all duration-300"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+      <canvas
+        baseChart
+        class="chart mt-3 px-2"
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [type]="barChartType"
+      >
+      </canvas>
+    </div>
+  </div>
+
+  <div
+    class="mb-3 mx-2 px-1 py-5 h-[45rem] max-w-1/3 border border-solid rounded-lg"
+  >
+    <div class="h-5/6 mx-auto">
+      <h2 class="text-center text-sm my-4">
+        Attendance from {{ attendanceResidence.value }} tourists in
+        {{ this.city }} in the year
+        {{ attendanceYearSelect.value }}
+      </h2>
+      <div class="flex justify-center flex-wrap items-end gap-2">
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="year">Year</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="year"
+            #attendanceYearSelect
+          >
+            <option *ngFor="let year of this.years" [value]="year">
+              {{ year }}
+            </option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="residence">Residence</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="residence"
+            #attendanceResidence
+          >
+            <option selected value="IT">Italian</option>
+            <option value="WRL_X_ITA">Other Countries</option>
+            <option value="ALL">All</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="residence">Solution</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="Solution"
+            #attendanceSolution
+          >
+            <option selected value="HOTELLIKE">Hotel</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+        <div>
+          <button
+            (click)="
+              this.updateAttendance(
+                attendanceYearSelect.value,
+                attendanceResidence.value,
+                attendanceSolution.value
+              )
+            "
+            class="bg-lightgray border border-red text-red text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5 hover:bg-red hover:text-white transition-all duration-300"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+      <canvas
+        baseChart
+        class="chart2 chart mt-3 px-2"
+        [data]="barChartData2"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [type]="barChartType"
+      >
+      </canvas>
+    </div>
+  </div>
+  <div class="flex flex-col">
+    <div class="mb-3 mx-2 px-1 py-5 h-80 border border-solid rounded-lg">
+      <h2 class="text-center text-sm my-2">
+        Attendance and Arrivals from {{ lineResidence.value }} tourists in
+        {{ this.city }} in the year
+        {{ lineYearSelect.value }}
+      </h2>
+      <div class="flex justify-center items-end gap-2">
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="year">Year</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="year"
+            #lineYearSelect
+          >
+            <option *ngFor="let year of this.years" [value]="year">
+              {{ year }}
+            </option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="residence">Residence</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="residence"
+            #lineResidence
+          >
+            <option selected value="IT">Italian</option>
+            <option value="WRL_X_ITA">Other Countries</option>
+            <option value="ALL">All</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="residence">Solution</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="Solution"
+            #lineSolution
+          >
+            <option selected value="HOTELLIKE">Hotel</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+        <div>
+          <button
+            (click)="
+              this.updateLineChart(
+                lineYearSelect.value,
+                lineResidence.value,
+                lineSolution.value
+              )
+            "
+            class="bg-lightgray border border-red text-red text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5 hover:bg-red hover:text-white transition-all duration-300"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+      <div class="relative h-2/3">
+        <canvas
+          baseChart
+          class="chart2 chart mt-3 px-2"
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [plugins]="barChartPlugins"
+          [type]="lineChartType"
+        >
+        </canvas>
+      </div>
+    </div>
+    <div
+      *ngIf="dataset != 'P'"
+      class="mb-3 mx-2 px-1 py-5 h-96 border border-solid rounded-lg"
+    >
+      <h2 class="text-center text-sm my-4">
+        Attendance and Arrivals from {{ pieResidence.value }} tourists in
+        {{ this.city }} in the year
+        {{ pieYearSelect.value }}
+      </h2>
+      <div class="flex justify-center items-end gap-2">
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="year">Year</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="year"
+            #pieYearSelect
+          >
+            <option *ngFor="let year of this.years" [value]="year">
+              {{ year }}
+            </option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="residence">Residence</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="residence"
+            #pieResidence
+          >
+            <option selected value="IT">Italian</option>
+            <option value="WRL_X_ITA">Other Countries</option>
+            <option value="ALL">All</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <label class="mb-2 text-sm" for="residence">Solution</label>
+          <select
+            class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
+            name="Solution"
+            #pieSolution
+          >
+            <option selected value="HOTELLIKE">Hotel</option>
+            <option value="OTHER">Other</option>
+          </select>
+        </div>
+        <div>
+          <button
+            (click)="
+              this.updatePieChart(
+                pieYearSelect.value,
+                pieResidence.value,
+                pieSolution.value
+              )
+            "
+            class="bg-lightgray border border-red text-red text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5 hover:bg-red hover:text-white transition-all duration-300"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+      <div class="relative h-2/3">
+        <canvas
+          baseChart
+          class="chart2 chart mt-3 px-2"
+          [data]="pieChartData"
+          [options]="pieChartOptions"
+          [plugins]="barChartPlugins"
+          [type]="pieChartType"
+        >
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
