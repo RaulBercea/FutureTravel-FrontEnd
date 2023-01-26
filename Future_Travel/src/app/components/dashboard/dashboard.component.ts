@@ -25,8 +25,8 @@ export class DashboardComponent implements OnInit {
   attendance: Array<number> = [];
   lineArrivals: Array<number> = [];
   lineAttendance: Array<number> = [];
-  pieArrivals: Array<number> = [];
-  pieAttendance: Array<number> = [];
+  pieArrivals: number = 0;
+  pieAttendance: number = 0;
   months: Array<string> = [];
   dataset: string = '';
   years: Array<string> = [];
@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
     private httpClient: HttpClient
   ) {}
 
-  updateArrivals(year: string, residence: any, solution: string) {
+  updateArrivals(year: string, residence: string, solution: string) {
     this.arrivals.length = 0;
     this.apiService
       .getApiCall({
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  updateAttendance(year: string, residence: any, solution: string) {
+  updateAttendance(year: string, residence: string, solution: string) {
     this.attendance.length = 0;
     this.apiService
       .getApiCall({
@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  updateLineChart(year: string, residence: any, solution: string) {
+  updateLineChart(year: string, residence: string, solution: string) {
     this.lineArrivals.length = 0;
     this.lineAttendance.length = 0;
     this.apiService
@@ -128,44 +128,26 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  updatePieChart(year: string, residence: any, solution: string) {
-    this.pieArrivals.length = 0;
-    this.pieAttendance.length = 0;
+  updatePieChart(year: string, residence: string, solution: string) {
     this.apiService
       .getApiCall({
         dataset: this.dataset,
-        solution: this.solutionChoice,
+        solution: solution,
         province: this.provinceCode,
-        startDate: `${this.year}-01`,
-        endDate: `${this.year}-12`,
+        residence: residence,
+        startDate: `${year}-01`,
+        endDate: `${year}-12`,
       })
       .subscribe((res: any) => {
         this.apiCallData = res;
         this.apiCallData.forEach((record) => {
-          if (record.arrivi != 0) {
-            this.pieArrivals.push(record.arrivi);
-          }
-
-          this.pieAttendance.push(record.presenze);
-
-          this.pieChartData = {
-            labels: ['Arrivals', 'Attendance'],
-            datasets: [
-              {
-                data: [
-                  this.pieArrivals.reduce((part, element) => part + element, 0),
-                  this.pieAttendance.reduce(
-                    (part, element) => part + element,
-                    0
-                  ),
-                ],
-                backgroundColor: ['#09D9D690', '#FF2F6490'],
-              },
-            ],
-          };
+          this.pieArrivals += record.arrivi;
+          this.pieAttendance += record.presenze;
         });
         this.charts?.forEach((chart) => {
-          chart.update();
+          if (chart.type == 'pie') {
+            chart.update();
+          }
         });
       });
   }
@@ -264,7 +246,15 @@ export class DashboardComponent implements OnInit {
     ],
   };
 
-  public pieChartData!: ChartData<'pie'>;
+  public pieChartData: ChartData<'pie'> = {
+    labels: ['Arrivals', 'Attendance'],
+    datasets: [
+      {
+        data: [this.pieArrivals, this.pieAttendance],
+        backgroundColor: ['#09D9D690', '#FF2F6490'],
+      },
+    ],
+  };
 
   public lineChartData: ChartData<'line'> = {
     labels: this.months,
