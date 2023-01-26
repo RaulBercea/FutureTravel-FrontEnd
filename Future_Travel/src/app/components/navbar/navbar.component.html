@@ -21,7 +21,7 @@
 <!-- 
 <img class="w-8 mr-2" src="./assets/FE_Logo.svg" alt="" /> <p class="text-white text-2xl" style="font-family: 'Inter', sans-serif; font-weight: 900" > Future </p> <p class="text-white text-2xl" style="font-family: 'Inter', sans-serif"> Travel </p> -->
 
-<nav class="bg-red border-gray-200 px-2 sm:px-4 py-2.5">
+<nav class="px-2 sm:px-4 py-2.5">
   <div class="container flex flex-wrap items-center justify-between mx-auto">
     <a routerLink="" class="flex items-center">
       <img class="w-8 mr-2" src="./assets/FE_Logo.svg" alt="" />
@@ -60,34 +60,29 @@
     </button>
     <div class="hidden w-full md:block md:w-auto" id="navbar-default">
       <ul
-        class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0"
+        class="flex flex-col p-4 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0"
       >
         <li
           routerLink=""
-          routerLinkActive="active-link"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:underline md:hover:text-white md:p-0"
+          class="cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:underline md:hover:text-white md:p-0"
         >
           <a> Home </a>
         </li>
         <li
           routerLink="aboutus"
-          routerLinkActive="active-link"
-          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:underline md:hover:text-white md:p-0"
+          class="cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:underline md:hover:text-white md:p-0"
         >
           <a>About</a>
         </li>
         <li
-          [routerLink]=""
-          routerLinkActive="active-link"
-          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:underline md:hover:text-white md:p-0"
+          routerLink="dashboard/s"
+          class="cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:underline md:hover:text-white md:p-0"
         >
           <a> Travel Data </a>
         </li>
         <li
-          [routerLink]=""
-          routerLinkActive="active-link"
-          class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:underline md:hover:text-white md:p-0"
+          routerLink="dashboard/p"
+          class="cursor-pointer block py-2 pl-3 pr-4 text-white rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:underline md:hover:text-white md:p-0"
         >
           <a> Travel Prevision </a>
         </li>
