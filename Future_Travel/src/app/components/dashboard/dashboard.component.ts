@@ -23,8 +23,8 @@ export class DashboardComponent implements OnInit {
   apiCallData: APIResult[] = [];
   arrivals: Array<number> = [];
   attendance: Array<number> = [];
-  arrivalsSum: number = 0;
-  attendanceSum: number = 0;
+  arrivalsSum: number = JSON.parse(localStorage.getItem('TotalArrivals')!);
+  attendanceSum: number = JSON.parse(localStorage.getItem('TotalAttendance')!);
   months: Array<string> = [];
   years: Array<string> = [
     '2021',
@@ -197,18 +197,7 @@ export class DashboardComponent implements OnInit {
     ],
   };
 
-  public pieChartData: ChartData<'pie'> = {
-    labels: ['Arrivals', 'Attendance'],
-    datasets: [
-      {
-        data: [
-          JSON.parse(localStorage.getItem('TotalArrivals') || '0'),
-          JSON.parse(localStorage.getItem('TotalAttendance') || '0'),
-        ],
-        backgroundColor: ['#FF2F6490', '#09D9D690'],
-      },
-    ],
-  };
+  public pieChartData!: ChartData<'pie'>;
 
   public lineChartData: ChartData<'line'> = {
     labels: this.months,
@@ -229,6 +218,18 @@ export class DashboardComponent implements OnInit {
   formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
 
   ngOnInit(): void {
+    this.arrivalsSum = JSON.parse(localStorage.getItem('TotalArrivals')!);
+    this.attendanceSum = JSON.parse(localStorage.getItem('TotalAttendance')!);
+    this.pieChartData  = {
+      labels: ['Arrivals', 'Attendance'],
+      datasets: [
+        {
+          data: [this.arrivalsSum, this.attendanceSum],
+          backgroundColor: [ '#09D9D690','#FF2F6490'],
+        },
+      ],
+    };
+
     this.city = this.route.snapshot.paramMap.get('province');
     if (!this.city) {
       this.city = 'Campania';
@@ -263,12 +264,16 @@ export class DashboardComponent implements OnInit {
           let date = new Date();
           date.setMonth(parseInt(record.time.slice(5)) - 1);
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
+
+          localStorage.setItem(
+            'TotalArrivals',
+            JSON.stringify(this.arrivalsSum)
+          );
+          localStorage.setItem(
+            'TotalAttendance',
+            JSON.stringify(this.attendanceSum)
+          );
         });
-        localStorage.setItem('TotalArrivals', JSON.stringify(this.arrivalsSum));
-        localStorage.setItem(
-          'TotalAttendance',
-          JSON.stringify(this.attendanceSum)
-        );
         this.charts?.forEach((chart) => {
           chart.update();
         });

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
@@ -6,7 +6,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   provinces: string[];
   urlImg: string[];
 
@@ -20,5 +20,9 @@ export class HomeComponent {
       'assets/avellino.jpeg',
       'assets/benevento.jpeg',
     ];
+  }
+
+  ngOnInit(): void {
+    localStorage.clear()
   }
 }
