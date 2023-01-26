@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,8 +9,9 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class HomeComponent implements OnInit {
   provinces: string[];
   urlImg: string[];
+  data: string = this.route.snapshot.paramMap.get('Data')!;
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     this.provinces = ['Napoli', 'Salerno', 'Caserta', 'Avellino', 'Benevento'];
 
     this.urlImg = [
@@ -23,6 +24,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.clear()
+    localStorage.clear();
   }
 }

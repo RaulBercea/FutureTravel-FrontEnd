@@ -5,6 +5,7 @@
 </div>
 <div class="md:grid lg:grid-cols-2 xl:grid-cols-3 md:w-11/12 mx-auto">
   <div
+    *ngIf="dataset != 'P'"
     class="mb-3 mx-2 px-1 py-5 h-[45rem] max-w-1/3 border border-solid rounded-lg"
   >
     <div class="h-5/6 mx-auto">
@@ -13,7 +14,7 @@
         {{ this.city }} in the year
         {{ arivalsYearSelect.value }}
       </h2>
-      <div class="flex justify-center flex-wrap items-end gap-5">
+      <div class="flex justify-center flex-wrap items-end gap-2">
         <div class="flex flex-col">
           <label class="mb-2 text-sm" for="year">Year</label>
           <select
@@ -85,7 +86,7 @@
         {{ this.city }} in the year
         {{ attendanceYearSelect.value }}
       </h2>
-      <div class="flex justify-center flex-wrap items-end gap-5">
+      <div class="flex justify-center flex-wrap items-end gap-2">
         <div class="flex flex-col">
           <label class="mb-2 text-sm" for="year">Year</label>
           <select
@@ -147,20 +148,20 @@
       </canvas>
     </div>
   </div>
-  <div class="flex flex-col sm:flex-row lg:flex-col w-full">
+  <div class="flex flex-col md:flex-row xl:flex-col">
     <div class="mb-3 mx-2 px-1 py-5 h-80 border border-solid rounded-lg">
       <h2 class="text-center text-sm my-2">
-        Attendance from {{ attendanceResidence.value }} tourists in
+        Attendance and Arrivals from {{ lineResidence.value }} tourists in
         {{ this.city }} in the year
-        {{ attendanceYearSelect.value }}
+        {{ lineYearSelect.value }}
       </h2>
-      <div class="flex justify-center flex-wrap items-end gap-5">
+      <div class="flex justify-center items-end gap-2">
         <div class="flex flex-col">
           <label class="mb-2 text-sm" for="year">Year</label>
           <select
             class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
             name="year"
-            #attendanceYearSelect
+            #lineYearSelect
           >
             <option *ngFor="let year of this.years" [value]="year">
               {{ year }}
@@ -172,7 +173,7 @@
           <select
             class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
             name="residence"
-            #attendanceResidence
+            #lineResidence
           >
             <option selected value="IT">Italian</option>
             <option value="WRL_X_ITA">Other Countries</option>
@@ -184,7 +185,7 @@
           <select
             class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
             name="Solution"
-            #attendanceSolution
+            #lineSolution
           >
             <option selected value="HOTELLIKE">Hotel</option>
             <option value="OTHER">Other</option>
@@ -193,10 +194,10 @@
         <div>
           <button
             (click)="
-              this.updateAttendance(
-                attendanceYearSelect.value,
-                attendanceResidence.value,
-                attendanceSolution.value
+              this.updateLineChart(
+                lineYearSelect.value,
+                lineResidence.value,
+                lineSolution.value
               )
             "
             class="bg-lightgray border border-red text-red text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5 hover:bg-red hover:text-white transition-all duration-300"
@@ -217,19 +218,22 @@
         </canvas>
       </div>
     </div>
-    <div class="mb-3 mx-2 px-1 py-5 h-96 border border-solid rounded-lg">
+    <div
+      *ngIf="dataset != 'P'"
+      class="mb-3 mx-2 px-1 py-5 h-96 border border-solid rounded-lg"
+    >
       <h2 class="text-center text-sm my-4">
-        Attendance from {{ attendanceResidence.value }} tourists in
+        Attendance and Arrivals from {{ pieResidence.value }} tourists in
         {{ this.city }} in the year
-        {{ attendanceYearSelect.value }}
+        {{ pieYearSelect.value }}
       </h2>
-      <div class="flex justify-center flex-wrap items-end gap-5">
+      <div class="flex justify-center items-end gap-2">
         <div class="flex flex-col">
           <label class="mb-2 text-sm" for="year">Year</label>
           <select
             class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
             name="year"
-            #attendanceYearSelect
+            #pieYearSelect
           >
             <option *ngFor="let year of this.years" [value]="year">
               {{ year }}
@@ -241,7 +245,7 @@
           <select
             class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
             name="residence"
-            #attendanceResidence
+            #pieResidence
           >
             <option selected value="IT">Italian</option>
             <option value="WRL_X_ITA">Other Countries</option>
@@ -253,7 +257,7 @@
           <select
             class="bg-lightgray border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1"
             name="Solution"
-            #attendanceSolution
+            #pieSolution
           >
             <option selected value="HOTELLIKE">Hotel</option>
             <option value="OTHER">Other</option>
@@ -262,10 +266,10 @@
         <div>
           <button
             (click)="
-              this.updateAttendance(
-                attendanceYearSelect.value,
-                attendanceResidence.value,
-                attendanceSolution.value
+              this.updatePieChart(
+                pieYearSelect.value,
+                pieResidence.value,
+                pieSolution.value
               )
             "
             class="bg-lightgray border border-red text-red text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5 hover:bg-red hover:text-white transition-all duration-300"

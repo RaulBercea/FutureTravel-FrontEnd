@@ -23,24 +23,15 @@ export class DashboardComponent implements OnInit {
   apiCallData: APIResult[] = [];
   arrivals: Array<number> = [];
   attendance: Array<number> = [];
+  lineArrivals: Array<number> = [];
+  lineAttendance: Array<number> = [];
+  pieArrivals: Array<number> = [];
+  pieAttendance: Array<number> = [];
   months: Array<string> = [];
-  years: Array<string> = [
-    '2021',
-    '2020',
-    '2019',
-    '2018',
-    '2017',
-    '2016',
-    '2015',
-    '2014',
-    '2013',
-    '2012',
-    '2011',
-    '2010',
-    '2009',
-    '2008',
-  ];
-  year: string | null | undefined = '2021';
+  dataset: string = '';
+  years: Array<string> = [];
+
+  year: string | null | undefined = '';
   provinceCode: string | undefined;
   solutionChoice: string | undefined = 'HOTELLIKE';
 
@@ -54,6 +45,7 @@ export class DashboardComponent implements OnInit {
     this.arrivals.length = 0;
     this.apiService
       .getApiCall({
+        dataset: this.dataset,
         solution: solution,
         province: this.provinceCode,
         startDate: `${year}-01`,
@@ -70,7 +62,9 @@ export class DashboardComponent implements OnInit {
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
         });
         this.charts?.forEach((chart) => {
-          chart.update();
+          if (chart.type == 'bar') {
+            chart.update();
+          }
         });
       });
   }
@@ -79,6 +73,7 @@ export class DashboardComponent implements OnInit {
     this.attendance.length = 0;
     this.apiService
       .getApiCall({
+        dataset: this.dataset,
         solution: solution,
         province: this.provinceCode,
         startDate: `${year}-01`,
@@ -95,6 +90,80 @@ export class DashboardComponent implements OnInit {
           this.months.push(date.toLocaleString('en-US', { month: 'short' }));
         });
 
+        this.charts?.forEach((chart) => {
+          if (chart.type == 'bar') {
+            chart.update();
+          }
+        });
+      });
+  }
+
+  updateLineChart(year: string, residence: any, solution: string) {
+    this.lineArrivals.length = 0;
+    this.lineAttendance.length = 0;
+    this.apiService
+      .getApiCall({
+        dataset: this.dataset,
+        solution: solution,
+        province: this.provinceCode,
+        startDate: `${year}-01`,
+        endDate: `${year}-12`,
+        residence: residence,
+      })
+      .subscribe((res: any) => {
+        this.apiCallData = res;
+        this.apiCallData.forEach((record) => {
+          this.lineArrivals.push(record.presenze);
+          this.lineAttendance.push(record.arrivi);
+          let date = new Date();
+          date.setMonth(parseInt(record.time.slice(5)) - 1);
+          this.months = [];
+          this.months.push(date.toLocaleString('en-US', { month: 'short' }));
+        });
+        this.charts?.forEach((chart) => {
+          if (chart.type == 'line') {
+            chart.update();
+          }
+        });
+      });
+  }
+
+  updatePieChart(year: string, residence: any, solution: string) {
+    this.pieArrivals.length = 0;
+    this.pieArrivals.length = 0;
+    this.apiService
+      .getApiCall({
+        dataset: this.dataset,
+        solution: this.solutionChoice,
+        province: this.provinceCode,
+        startDate: `${this.year}-01`,
+        endDate: `${this.year}-12`,
+      })
+      .subscribe((res: any) => {
+        this.apiCallData = res;
+        this.apiCallData.forEach((record) => {
+          if (record.arrivi != 0) {
+            this.pieArrivals.push(record.arrivi);
+          }
+
+          this.pieAttendance.push(record.presenze);
+
+          this.pieChartData = {
+            labels: ['Arrivals', 'Attendance'],
+            datasets: [
+              {
+                data: [
+                  this.pieArrivals.reduce((part, element) => part + element, 0),
+                  this.pieAttendance.reduce(
+                    (part, element) => part + element,
+                    0
+                  ),
+                ],
+                backgroundColor: ['#09D9D690', '#FF2F6490'],
+              },
+            ],
+          };
+        });
         this.charts?.forEach((chart) => {
           chart.update();
         });
@@ -201,12 +270,12 @@ export class DashboardComponent implements OnInit {
     labels: this.months,
     datasets: [
       {
-        data: this.attendance,
+        data: this.lineAttendance,
         label: 'Attendance',
         backgroundColor: '#FF2F6490',
       },
       {
-        data: this.arrivals,
+        data: this.lineArrivals,
         label: 'Arivals',
         backgroundColor: '#09D9D690',
       },
@@ -216,10 +285,35 @@ export class DashboardComponent implements OnInit {
   formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
 
   ngOnInit(): void {
+    this.dataset = this.route.snapshot.paramMap.get('Data')!;
     this.city = this.route.snapshot.paramMap.get('province');
+    console.log(this.dataset);
     if (!this.city) {
       this.city = 'Campania';
     }
+
+    if (this.dataset == 'S') {
+      this.years = [
+        '2021',
+        '2020',
+        '2019',
+        '2018',
+        '2017',
+        '2016',
+        '2015',
+        '2014',
+        '2013',
+        '2012',
+        '2011',
+        '2010',
+        '2009',
+        '2008',
+      ];
+    } else if (this.dataset == 'P') {
+      this.years = ['2022', '2023'];
+    }
+
+    this.year = this.years[0];
 
     // look for the name of the province in the
     // province enum and return the ISTAT code
@@ -231,18 +325,22 @@ export class DashboardComponent implements OnInit {
 
     this.apiService
       .getApiCall({
+        dataset: this.dataset,
         solution: this.solutionChoice,
         province: this.provinceCode,
         startDate: `${this.year}-01`,
         endDate: `${this.year}-12`,
       })
       .subscribe((res: any) => {
-        localStorage.setItem('TotalArrivals', '0');
-        localStorage.setItem('TotalAttendance', '0');
         this.apiCallData = res;
         this.apiCallData.forEach((record) => {
-          this.arrivals.push(record.arrivi);
+          if (record.arrivi != 0) {
+            this.arrivals.push(record.arrivi);
+            this.lineArrivals.push(record.arrivi);
+          }
+
           this.attendance.push(record.presenze);
+          this.lineAttendance.push(record.presenze);
 
           let date = new Date();
           date.setMonth(parseInt(record.time.slice(5)) - 1);

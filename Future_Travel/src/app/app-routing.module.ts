@@ -8,10 +8,10 @@ import { apiServiceResolver } from './resolvers/api.resolver';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'home/:Data', component: HomeComponent },
+  { path: 'dashboard/:Data', component: DashboardComponent },
   {
-    path: 'dashboard/:province',
+    path: 'dashboard/:province/:Data',
     component: DashboardComponent,
     resolve: {
       data: apiServiceResolver,
