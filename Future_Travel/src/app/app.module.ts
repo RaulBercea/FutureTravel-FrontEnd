@@ -5,17 +5,27 @@ import { AppComponent } from './app.component';
 import { NgChartsModule } from 'ng2-charts';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { HomeComponent } from './components/home/home.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, LandingPageComponent, AboutPageComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    LandingPageComponent,
+    HomeComponent,
+    DashboardComponent,
+    AboutPageComponent,
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     NgChartsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
