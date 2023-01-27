@@ -10,4 +10,13 @@ export class NavbarComponent {
   goBack() {
     this.location.back();
   }
+
+  checkToogle() {
+    let navBarToggle = document.getElementById('navbar-default');
+    if (navBarToggle?.classList.contains('hidden')) {
+      navBarToggle?.classList.remove('hidden');
+    } else {
+      navBarToggle?.classList.add('hidden');
+    }
+  }
 }

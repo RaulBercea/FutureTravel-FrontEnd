@@ -1,0 +1,32 @@
+<footer class="mt-20 bg-red">
+  <div class="gap-8 px-6 py-1">
+    <div>
+      <h2
+        class="my-4  text-md font-semibold uppercase text-gray-700 text-center"
+      >
+        ExtraTech
+      </h2>
+      <ul class="text-gray-700 mx-auto w-[200px] flex flex-col justify-center">
+        <li class="mb-1 text-center text-white">
+          <a [routerLink]="['']" class="hover:underline ">Home</a>
+        </li>
+        <li class="mb-1 text-center text-white">
+          <a [routerLink]="['/aboutus']" class="hover:underline text-center">About Us</a>
+        </li>
+        <li class="mb-1 text-center text-white">
+          <a [routerLink]="['/home/', 'S']" class="hover:underline text-center">Travel Data</a>
+        </li>
+        <li class="mb-1 text-center text-white">
+          <a [routerLink]="['/home/', 'P']" class="hover:underline text-center">Predictions</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="p-5 md:flex md:divide-y md:items-center md:justify-between bg-gray-700"
+  >
+    <span class="text-sm text-white"
+      >©️ 2023 ExtraTech All Rights Reserved.
+    </span>
+  </div>
+</footer>

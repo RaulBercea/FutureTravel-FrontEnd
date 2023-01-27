@@ -18,6 +18,7 @@ const routes: Routes = [
     },
   },
   { path: 'aboutus', component: AboutPageComponent },
+  { path: '**', component: LandingPageComponent },
 ];
 
 @NgModule({
