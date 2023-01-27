@@ -1,10 +1,17 @@
 <div class="bg-red top-0 fixed sm:sticky z-50 w-full">
   <app-navbar></app-navbar>
 </div>
-<div class="flex justify-center text-3xl text-red mt-24 lg:mt-14">
+<div *ngIf="data==='S'; else elseBlock" class="flex justify-center text-3xl text-red mt-24 lg:mt-14">
   <i class="bi bi-airplane-fill rotate-45 mr-2"></i>
   <h1 class="font-bold">Travel Data</h1>
 </div>
+
+<ng-template #elseBlock>
+  <div *ngIf="data==='P'" class="flex justify-center text-3xl text-red mt-24 lg:mt-14">
+    <i class="bi bi-graph-up mr-2"></i>
+    <h1 class="font-bold">Predictions</h1>
+  </div>
+</ng-template>
 
 <div
   [routerLink]="['/dashboard', data]"
